@@ -1,0 +1,46 @@
+<!--
+
+Preço Base da Corrida
+Custo Fixo
+Horarios e regiões de maior movimento
+
+-->
+<input placeholder="Distancia em KM" id = "campoDistanciaEmKM"/>
+<input placeholder="Tempo em minutos" id = "campoTempoEmMin"/>
+<button onclick="calculaCorrida()">Calcular</button>
+
+<script>
+
+
+
+function formataMoeda(AvalorDaCorrida) {
+    var valorFormatado = AvalorDaCorrida.toFixed(2).replace('.', ',');
+    return valorFormatado;   
+}
+     
+function calculaCorrida(){
+    // [PROCESSAMENTO]
+    //Valida na entrada / Fail Fast Validations
+   //organizar as entradas e regras de negocio
+   // sE TIVER A dISTANCIAEMkm, SEGUE O CÓDIGO
+   //SE NÃO, PARA POR AQUI
+   var iscampoDistanciaEmKMVazio = campoDistanciaEmKM.value == '';
+   if(iscampoDistanciaEmKMVazio){
+    alert('Não tem o Valor da distancia'); 
+    return;
+   }
+
+   var tarifaDinamica = 1.4;
+   var distanciaEmKm = campoDistanciaEmKM.value * tarifaDinamica;
+   var tempoEmMin =  campoTempoEmMin.value * 0.26;
+   var valorDaCorrida = distanciaEmKm + tempoEmMin;
+   
+   if(iscampoDistanciaEmKMVazio){
+    alert('Não tem o Valor da distancia'); 
+    return;
+   }
+   //[OUTPUT]
+   alert('Valor Corrida e '+formataMoeda(valorDaCorrida));  
+}
+
+</script>
