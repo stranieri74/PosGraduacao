@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Prototipagem em JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #saida {
+      margin-top: 30px;
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .linha {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧩 Prototipagem Simples em JavaScript</h1>
+
+  <div style="text-align:center;">
+    <button id="btnPessoa">Criar Pessoa</button>
+    <button id="btnAluno">Criar Aluno</button>
+    <button id="btnProfessor">Criar Professor</button>
+  </div>
+
+  <div id="saida"></div>
+
+  <script>
+    // Protótipo base
+    function Pessoa(nome, idade) {
+      this.nome = nome;
+      this.idade = idade;
+    }
+
+    Pessoa.prototype.falar = function() {
+      return `Olá, meu nome é ${this.nome} e tenho ${this.idade} anos.`;
+    };
+
+    // Protótipo Aluno
+    function Aluno(nome, idade, curso) {
+      Pessoa.call(this, nome, idade);
+      this.curso = curso;
+    }
+    Aluno.prototype = Object.create(Pessoa.prototype);
+    Aluno.prototype.constructor = Aluno;
+    Aluno.prototype.estudar = function() {
+      return `${this.nome} está estudando ${this.curso}.`;
+    };
+
+    // Protótipo Professor
+    function Professor(nome, idade, disciplina) {
+      Pessoa.call(this, nome, idade);
+      this.disciplina = disciplina;
+    }
+    Professor.prototype = Object.create(Pessoa.prototype);
+    Professor.prototype.constructor = Professor;
+    Professor.prototype.ensinar = function() {
+      return `${this.nome} está dando aula de ${this.disciplina}.`;
+    };
+
+    // Exibição na tela
+    const saida = document.getElementById("saida");
+
+    function mostrar(texto) {
+      const linha = document.createElement("div");
+      linha.classList.add("linha");
+      linha.innerHTML = texto;
+      saida.appendChild(linha);
+    }
+
+    // Botões de teste
+    document.getElementById("btnPessoa").addEventListener("click", () => {
+      const p = new Pessoa("José", 30);
+      mostrar(p.falar());
+    });
+
+    document.getElementById("btnAluno").addEventListener("click", () => {
+      const a = new Aluno("Maria", 22, "Engenharia");
+      mostrar(a.falar());
+      mostrar(a.estudar());
+    });
+
+    document.getElementById("btnProfessor").addEventListener("click", () => {
+      const prof = new Professor("Carlos", 45, "Matemática");
+      mostrar(prof.falar());
+      mostrar(prof.ensinar());
+    });
+  </script>
+</body>
+</html>
