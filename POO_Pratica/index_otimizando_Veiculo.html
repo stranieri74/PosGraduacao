@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Veículos - POO em JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f2f4f8;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #resultado {
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚗 Cadastro de Veículos</h1>
+
+  <form id="formVeiculo">
+    <label for="tipo">Tipo de Veículo:</label>
+    <select id="tipo" required>
+      <option value="">Selecione...</option>
+      <option value="carro">Carro</option>
+      <option value="moto">Moto</option>
+    </select>
+
+    <label for="marca">Marca:</label>
+    <input type="text" id="marca" required>
+
+    <label for="modelo">Modelo:</label>
+    <input type="text" id="modelo" required>
+
+    <label for="ano">Ano:</label>
+    <input type="number" id="ano" required>
+
+    <div id="extraCampo"></div>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script>
+    class Veiculo {
+      constructor(marca, modelo, ano) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+      }
+      exibirInfo() {
+        return `${this.marca} ${this.modelo} - Ano: ${this.ano}`;
+      }
+    }
+
+    class Carro extends Veiculo {
+      constructor(marca, modelo, ano, portas) {
+        super(marca, modelo, ano);
+        this.portas = portas;
+      }
+      exibirInfo() {
+        return `🚗 ${super.exibirInfo()}<br>Portas: ${this.portas}`;
+      }
+    }
+
+    class Moto extends Veiculo {
+      constructor(marca, modelo, ano, cilindradas) {
+        super(marca, modelo, ano);
+        this.cilindradas = cilindradas;
+      }
+      exibirInfo() {
+        return `🏍️ ${super.exibirInfo()}<br>Cilindradas: ${this.cilindradas}cc`;
+      }
+    }
+
+    const form = document.getElementById('formVeiculo');
+    const tipoSelect = document.getElementById('tipo');
+    const extraCampoDiv = document.getElementById('extraCampo');
+    const resultadoDiv = document.getElementById('resultado');
+
+    tipoSelect.addEventListener('change', () => {
+      const tipo = tipoSelect.value;
+      if (tipo === 'carro') {
+        extraCampoDiv.innerHTML = `
+          <label for="portas">Número de portas:</label>
+          <input type="number" id="portas" required>
+        `;
+      } else if (tipo === 'moto') {
+        extraCampoDiv.innerHTML = `
+          <label for="cilindradas">Cilindradas (cc):</label>
+          <input type="number" id="cilindradas" required>
+        `;
+      } else {
+        extraCampoDiv.innerHTML = '';
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const tipo = tipoSelect.value;
+      const marca = document.getElementById('marca').value;
+      const modelo = document.getElementById('modelo').value;
+      const ano = document.getElementById('ano').value;
+
+      let veiculo;
+
+      if (tipo === 'carro') {
+        const portas = document.getElementById('portas').value;
+        veiculo = new Carro(marca, modelo, ano, portas);
+      } else if (tipo === 'moto') {
+        const cilindradas = document.getElementById('cilindradas').value;
+        veiculo = new Moto(marca, modelo, ano, cilindradas);
+      }
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = veiculo.exibirInfo();
+
+      resultadoDiv.appendChild(card);
+
+      form.reset();
+      extraCampoDiv.innerHTML = '';
+    });
+  </script>
+</body>
+</html>
