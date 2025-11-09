@@ -1,0 +1,11 @@
+{
+  "$schema": "https://angular.io/config/angular.json",
+  "version": 1,
+  "projects": {
+    "client-angular": {
+      "projectType": "application",
+      "architect": {}
+    }
+  },
+  "defaultProject": "client-angular"
+}

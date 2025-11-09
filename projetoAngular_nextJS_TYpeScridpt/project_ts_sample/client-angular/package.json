@@ -1,0 +1,26 @@
+{
+  "name": "client-angular",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "ng serve --port 4200 --open",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/animations": "16.2.0",
+    "@angular/common": "16.2.0",
+    "@angular/compiler": "16.2.0",
+    "@angular/core": "16.2.0",
+    "@angular/forms": "16.2.0",
+    "@angular/platform-browser": "16.2.0",
+    "@angular/platform-browser-dynamic": "16.2.0",
+    "@angular/router": "16.2.0",
+    "rxjs": "7.8.1",
+    "tslib": "2.6.2",
+    "zone.js": "0.13.1"
+  },
+  "devDependencies": {
+    "@angular/cli": "16.2.0",
+    "typescript": "5.3.3"
+  }
+}

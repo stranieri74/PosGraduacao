@@ -1,0 +1,12 @@
+<div style="text-align:center; margin-top:40px;">
+  <h1>Cliente Angular (TypeScript)</h1>
+  <p>Mensagem recebida do servidor:</p>
+  <strong>{{ mensagem }}</strong>
+
+  <div style="margin-top:20px;">
+    <input [(ngModel)]="mensagem" placeholder="Digite algo" />
+    <button (click)="enviar()">Enviar ao servidor</button>
+  </div>
+
+  <p *ngIf="resposta">{{ resposta }}</p>
+</div>

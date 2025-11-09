@@ -1,0 +1,12 @@
+{
+  "name": "next-angular-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install-all": "npm --prefix server-next install && npm --prefix client-angular install",
+    "dev": "concurrently \"npm --prefix server-next run dev\" \"npm --prefix client-angular run start\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
